@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_doctor,Hospital Doctor,pk_hospital.model_hospital_patient,pk_hospital.group_hospital_doctor,1,0,1,0
+access_hospital_nurse,Hospital Nurse,pk_hospital.model_hospital_patient,pk_hospital.group_hospital_nurse,1,0,0,0
+access_hospital_admin,Hospital Admin,pk_hospital.model_hospital_patient,pk_hospital.group_hospital_admin,1,1,1,1
+access.hospital.patient,access_hospital_patient,pk_hospital.model_hospital_patient,,0,0,0,0
+access.hospital.hospital,access_hospital_hospital,pk_hospital.model_hospital_hospital,base.group_user,1,1,1,1
+access.hospital.diseases,access_hospital_diseases,pk_hospital.model_hospital_diseases,base.group_user,1,1,1,1
+access.change.health.status,access_change_health_status,pk_hospital.model_change_health_status,base.group_user,1,1,1,1
+access.calculate.bmi,access_calculate_bmi,pk_hospital.model_calculate_bmi,base.group_user,1,1,1,1
+access.patient.hobby,access_patient_hobby,pk_hospital.model_patient_hobby,base.group_user,1,1,1,1
+access.hospital.doctors,access_hospital_doctors,pk_hospital.model_hospital_doctors,base.group_user,1,1,1,1
+access.hospital.drug,access_hospital_drug,pk_hospital.model_hospital_drug,base.group_user,1,1,1,1
+access.drug.lines,access_drug_lines,pk_hospital.model_drug_lines,base.group_user,1,1,1,1

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_hospital_list">
+        <field name="name">Hospital</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.hospital</field>
+        <!--        <field name="view_mode">tree,form,kanban,graph,calendar,pivot</field>-->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first hospital!
+            </p>
+        </field>
+    </record>
+
+    <record id="hospital_hospital_type_view_tree" model="ir.ui.view">
+        <field name="name">hospital.hospital.tree</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1">
+                <field name="name"/>
+                <field name="hospital_id"/>
+                <field name="address"/>
+                <field name="patient"/>
+                <field name="owner_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_hospital_type_view_form" model="ir.ui.view" forcecreate="false">
+        <field name="name">hospital.hospital.form</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" help="this is the name field"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="patient"/>
+                            <field name="owner_name"/>
+                            <field name="hospital_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

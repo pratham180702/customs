@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_drug_list">
+        <field name="name">Drugs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.drug</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first Drug!
+            </p>
+        </field>
+    </record>
+
+    <record id="drugs_view_tree" model="ir.ui.view">
+        <field name="name">hospital.drugs.tree</field>
+        <field name="model">hospital.drug</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="drug_id"/>
+                <field name="drug_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="drugs_view_form" model="ir.ui.view">
+        <field name="name">hospital.drugs.form</field>
+        <field name="model">hospital.drug</field>
+        <field name="arch" type="xml">
+            <form string="Drugs Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="drug_id"/>
+                        </group>
+                        <group>
+                            <field name="drug_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

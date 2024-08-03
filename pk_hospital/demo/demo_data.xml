@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="demo_disease" model="hospital.diseases">
+        <field name="name">FLUUU</field>
+        <field name="description">This is the fluuuu disease</field>
+        <!--        <field name="patient_id" ref="pk_module.">This is the fluuuu disease</field>-->
+    </record>
+
+    <record id="demo_disease2" model="hospital.diseases">
+        <field name="name">FEVER</field>
+        <field name="description">This is the FEVER disease</field>
+    </record>
+
+    <!--    <record id="hospital_diseases_record_7" model="hospital.diseases">-->
+    <!--        <field name="description">This is the fluuuu disease</field>-->
+    <!--    </record>-->
+
+    <!--    <record id="l10n_ma_demo_company_company" model="res.company">-->
+    <!--        <field name="name">MA Company</field>-->
+    <!--        <field name="partner_id" ref="l10n_ma_demo_company"/>-->
+    <!--    </record>-->
+
+    <!--    <function model="res.company" name="_onchange_country_id">-->
+    <!--        <value eval="[ref('l10n_ma_demo_company_company')]"/>-->
+    <!--    </function>-->
+
+    <!--    <function model="res.users" name="write">-->
+    <!--        <value eval="[ref('base.user_root'), ref('base.user_admin'), ref('base.user_demo')]"/>-->
+    <!--        <value eval="{'company_ids': [(4, ref('l10n_ma.l10n_ma_demo_company_company'))]}"/>-->
+    <!--    </function>-->
+
+    <!--    <function model="account.chart.template" name="try_loading">-->
+    <!--        <value eval="[]"/>-->
+    <!--        <value>ma</value>-->
+    <!--        <value model="res.company" eval="obj().env.ref('l10n_ma.l10n_ma_demo_company_company')"/>-->
+    <!--    </function>-->
+</odoo>

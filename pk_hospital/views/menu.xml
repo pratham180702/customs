@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <menuitem id="menu_hospital_root"
+              name="Hospital"
+              sequence="0"/>
+
+    <menuitem id="menu_hospital_list"
+              name="Hospitals List"
+              parent="menu_hospital_root"
+              action="action_hospital_list"
+              sequence="0"/>
+
+    <menuitem id="menu_hobby_list"
+              name="Patient's hobby List"
+              parent="menu_hospital_root"
+              action="action_hobby_list"
+              sequence="0"/>
+
+    <menuitem id="menu_diseases_list"
+              name="Diseases List"
+              parent="menu_hospital_root"
+              action="action_disease_list"
+              sequence="0"/>
+
+    <menuitem id="menu_doctors_list"
+              name="Doctors List"
+              parent="menu_hospital_root"
+              action="action_doctor_list"
+              sequence="0"/>
+
+    <menuitem id="menu_drug_list"
+              name="Drugs List"
+              parent="menu_hospital_root"
+              action="action_drug_list"
+              sequence="0"/>
+
+    <menuitem id="menu_patient_master"
+              name="Patient Details"
+              parent="menu_hospital_root"
+              sequence="0"/>
+
+    <menuitem id="menu_patient"
+              name="Patient"
+              action="action_hospital_patient"
+              parent="menu_patient_master"
+              sequence="0"/>
+
+    <menuitem id="menu_patient_new"
+              name="Patient sample"
+              action="action_hospital_patient"
+              parent="menu_patient_master"
+              sequence="0"/>
+
+    <menuitem id="menu_patient_new"
+              name="Print report"
+              action="action_patient_list_report"
+              parent="menu_patient_master"
+              sequence="0"/>
+
+    <menuitem id="menu_change_health_status"
+              name="Change Health Status"
+              action="action_change_health_status"
+              parent="menu_patient_master"
+              sequence="0"/>
+
+</odoo>
+

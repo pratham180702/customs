@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.actions.act_window" id="action_change_health_status">
+        <field name="name">Change Status : current status of the reference patient will be swapped</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">change.health.status</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_change_health_status_form" model="ir.ui.view">
+        <field name="name">cancel.appointment.wizard.form</field>
+        <field name="model">change.health.status</field>
+<!--        <field name="binding_model_id" model="ir.model" search="[('model','=','change.health.status')]"/>-->
+        <field name="arch" type="xml">
+            <form string="Health Status Form" edit="true">
+                <group>
+                    <field name="ref"/>
+                </group>
+                <footer>
+                    <button name="update_health_status" string="Save" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

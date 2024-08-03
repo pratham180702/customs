@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_hobby_list">
+        <field name="name">Hobby</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.hobby</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first hobby!
+            </p>
+        </field>
+    </record>
+
+
+    <record id="hobby_type_view_tree" model="ir.ui.view">
+        <field name="name">patient.hobby.tree</field>
+        <field name="model">patient.hobby</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="hobby_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hobby_type_view_form" model="ir.ui.view">
+        <field name="name">patient.hobby.form</field>
+        <field name="model">patient.hobby</field>
+        <field name="arch" type="xml">
+            <form string="Hobby Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" help="this is the name field" store="true"/>
+                            <field name="hobby_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Information">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </page>
+                        <page string="ids of hobby">
+                            <group>
+                                <field name="hobby_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.actions.act_window" id="action_calculate_bmi">
+        <field name="name">Calculate BMI</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">calculate.bmi</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_calculate_bmi_form" model="ir.ui.view">
+        <field name="name">calculate.bmi.wizard.form</field>
+        <field name="model">calculate.bmi</field>
+        <!--        <field name="binding_model_id" model="ir.model" search="[('model','=','change.health.status')]"/>-->
+        <field name="arch" type="xml">
+            <form string="BMI Calculation Form">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="height"/>
+                    </group>
+                    <group>
+                        <field name="weight"/>
+                        <field name="bmi"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Save" special="save"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

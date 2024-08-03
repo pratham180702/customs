@@ -1,0 +1,309 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+
+<odoo>
+
+    <!--    <data noupdate="1">-->
+    <record id="hospital_patient_type_view_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.tree</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <!--            <tree decoration-danger="gender &gt; 18" open_form_view="true" create="false">-->
+            <!--            <tree decoration-danger="gender &gt; '18'">-->
+            <tree default_order='name desc'>
+                <header>
+                    <button type="object" name="sample" string="h btn" display="always" class="btn-dark"/>
+                </header>
+                <control>
+                    <create string="LABEL"/>
+                    <!--                    <button type="object" name="sample" string="h btn" display="always" class="btn-dark"/>-->
+                </control>
+                <field name="name" required="true" default_focus="true"/>
+                <!--                <field name="age" sum="Total" column_invisible="true"/>-->
+                <field name="age" sum="Total"/>
+                <!--                <field name="cured" groups="pk_hospital.group_hospital_user" class="oe_right"/>-->
+                <field name="cured" class="oe_right"/>
+                <field name="gender"/>
+                <field name="ref"/>
+                <field name="hospital"/>
+                <field name="disease_ids"/>
+                <field name="patient_hobby" widget="many2many_tags"/>
+                <field name="total_bill"/>
+                <field name="sequence" widget="handle"/>
+
+                <button type="object" name="sample" string="sample btn" icon="oi-search"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="show_drugs" model="ir.ui.view">
+        <field name="name">hospital.drugs.tree</field>
+        <field name="model">drug.lines</field>
+        <field name="arch" type="xml">
+            <!--            <tree decoration-danger="gender &gt; 18" open_form_view="true" create="false">-->
+            <!--            <tree decoration-danger="gender &gt; '18'">-->
+            <tree default_order='name desc'>
+                <field name="name"/>
+                <field name="drug_price"/>
+                <field name="quantity"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_mark_as_cured" model="ir.actions.server">
+        <field name="name">Mark as cured</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="state">code</field>
+        <field name="code">
+            record.mark_as_cured()
+        </field>
+    </record>
+
+
+    <!--    SEARCH VIEW-->
+
+    <record id="search_hospital_patient" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('gender', 'ilike', self)]"/>
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                <separator/>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                <filter name="filter_age" string="Adults" domain="[('age','&gt;',18)]"/>
+                <filter name="filter_age" string="Minors" domain="[('age','&lt;',18)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_patient_type_view_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_chatter text-primary">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                <header>
+                    <button name="button_in_progress" class="oe_highlight btn-warning" string="In Progress"
+                            type="object" help="Move Appointment to In Progress state"
+                            invisible="cured == 'cured'"/>
+
+
+                    <button name="button_cured" class="oe_highlight btn-danger" string="Cured and Discharged"
+                            type="object" help="Move Appointment to Cured State" invisible="cured == 'cured'"/>
+                    <button name="button_dead" class="oe_highlight btn-info" string="Dead"
+                            type="object" help="Move Appointment to Dead state" invisible="cured == 'cured'"/>
+
+                    <button name="action_bill" class="oe_highlight btn-light" string="Generate Invoice"
+                            type="object" help="This will generate invoice in invoicing application"
+                            invisible="status in ('admitted', 'treatment')"/>
+
+                    <button name="%(action_calculate_bmi)d" class="oe_highlight btn-light" string="Calculate BMI"
+                            type="action" help="This will calculate the BMI of the Patient"/>
+
+                    <button name="action_share_whatsapp" class="oe_highlight btn-danger" string="Whatsapp Message"
+                            type="object" help="This button will redirect you to the WhatsApp"/>
+
+
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="admitted, treatment, cured, not_cured" default="admitted"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box oe_left" name="button_box">
+                        <button class="oe_stat_button" type="object" name="show_drugs"
+                                icon="fa-star">
+                            <field string="Show Drugs" name="drugs" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" help="This is the name field"/>
+                            <field name="cured" class="oe_readonly"/>
+                            <field name="patient_hobby" widget="many2many_tags"/>
+                            <field name="phone" widget="char"/>
+                            <field name="patient_image"/>
+                            <field name="bmi"/>
+                        </group>
+                        <group>
+                            <field name="gender" placeholder="Gender"/>
+                            <field name="ref"/>
+                            <field name="hospital" no_create_edit="true" widget="many2one"/>
+                            <field name="total_bill" widget="monetary"
+                                   options="{'currency_field': 'currency_id', 'no_symbol': False}"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="age"/>
+                            <!--                            <field name="filtered_doctor_ids" invisible="1"/>-->
+                            <!--                            <field name="treated_under"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Drugs Given">
+                            <field name="drugs">
+                                <tree>
+                                    <field name="drug_id"/>
+                                    <field name="drug_price"/>
+                                    <field name="quantity"/>
+                                    <field name="total"/>
+                                    <!--                                <button type="object" name="date_of_release_confirm" icon="oi-search"/>-->
+                                    <control>
+                                        <create name="add_product_control" string="Add a product" editable="true"/>
+                                    </control>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="ids of hobby">
+                            <group>
+                                <tree>
+                                    <field name="hospital"/>
+                                </tree>
+                            </group>
+                        </page>
+                        <page string="Diseases List">
+                            <field name="disease_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_hospital_patient">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar,pivot</field>
+        <field name="context">{"search_default_filter_male":1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first patient !
+            </p>
+        </field>
+    </record>
+
+
+    <!--    KANBAN VIEW-->
+    <record id="hospital_patient_type_view_kanban" model="ir.ui.view">
+        <field name="name">hospital.patient.kanban</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_order="name desc" quick_create_view="True" default_group_by="gender"
+                    _fold="1">
+                <progressbar field="gender" sum_field="age" colors='{"male": "success", "female": "warning"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_content"
+                             t-attf-class="oe_kanban_card_#{record.gender == 'male' ? 'orange' : 'yellow'}">
+                            <div class="oe_kanban_global_click">
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="col-md-8">
+                                        <strong>
+                                            <field name="name"/>
+                                            <p>
+                                                <field name="age"/>
+                                                years old
+                                            </p>
+                                        </strong>
+                                    </div>
+                                    <div class="col-md-4" style="max-width: 100px; max-height: 100px;">
+                                        <div class="oe_kanban_image">
+                                            <img t-att-src="kanban_image('hospital.patient','patient_image',record.id.raw_value)"
+                                                 style="max-width: 60px; max-height: 60px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left text-muted">
+                                            <t t-set="test" t-value="'not_cured'"/>
+
+                                            <t t-if="test === 'not_cured'">
+                                                Oh no! The patient is dead
+                                            </t>
+                                            <t t-else="">
+                                                <field name="status"/>
+                                            </t>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="patient_hobby" widget="many2many_tags"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!--    GRAPH VIEW-->
+    <record id="hospital_patient_type_view_graph" model="ir.ui.view">
+        <field name="name">hospital.patient.graph</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <graph string="Patients by Gender" type="pie">
+                <field name="gender"/>
+            </graph>
+        </field>
+    </record>
+
+    <!--    CALENDER VIEW-->
+
+    <record id="hospital_patient_type_view_calender" model="ir.ui.view">
+        <field name="name">hospital.patient.calendar</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <calendar string="Patients Calendar" date_start="create_date" date_stop="write_date">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="gender"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!--    PIVOT VIEW-->
+
+    <record id="hospital_patient_type_view_pivot" model="ir.ui.view">
+        <field name="name">hospital.patient.pivot</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <pivot string="Patients Pivot">
+                <field name="name" type="row"/>
+                <field name="age" type="col" operator="sum"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.report" id="action_patient_list_report">
+        <field name="name">Patient List Report</field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pk_hospital.report_patient_list</field>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+    </record>
+
+
+</odoo>

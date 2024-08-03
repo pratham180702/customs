@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_hospital_doctor" model="res.groups">
+        <field name="name">Doctors</field>
+    </record>
+
+    <record id="group_hospital_nurse" model="res.groups">
+        <field name="name">Nurses</field>
+    </record>
+
+    <record id="group_hospital_admin" model="res.groups">
+        <field name="name">Admin</field>
+    </record>
+
+</odoo>

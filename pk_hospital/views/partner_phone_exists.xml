@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="partner_phone_exists_wizard_form_view" model="ir.ui.view">
+        <field name="name">patient.hobby.form</field>
+        <field name="model">partner.exists.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Phone confirmation">
+                <sheet>
+                    <footer>
+                        <field name="no_label"/>
+                        <button name="create_phone_contact" type="object" string="Create Contact"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

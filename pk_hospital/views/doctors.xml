@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="doctor_type_view_form" model="ir.ui.view">
+        <field name="name">hospital.doctors.form</field>
+        <field name="model">hospital.doctors</field>
+        <field name="inherit_id" ref="pk_hospital.hospital_hospital_type_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='patient']" position="attributes">
+                    <attribute name="string">sample string</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_doctor_list">
+        <field name="name">Diseases</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.doctors</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first Doctor!
+            </p>
+        </field>
+        <field name="view_id" ref="doctor_type_view_form"/>
+    </record>
+
+
+    <record id="doctor_type_view_tree" model="ir.ui.view">
+        <field name="name">hospital.doctors.tree</field>
+        <field name="model">hospital.doctors</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="address"/>
+                <field name="doctor_name"/>
+                <field name="doctor_age"/>
+                <field name="hospital"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+</odoo>
